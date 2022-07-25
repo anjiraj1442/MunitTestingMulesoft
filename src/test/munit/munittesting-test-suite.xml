@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="munittesting-test-suite.xml" />
+	<munit:test name="munittesting-hello-api-munittestingFlowTest" doc:id="9961fd9b-4843-447f-b253-687f68be17c9" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="fd50fd1c-b8d0-4ab8-9c1d-52f27314af90" >
+				<munit:attributes value='#[{queryParams: {firstName: "anji",lastName:"ardula"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to munittestingFlow" doc:id="5c29fa5a-ffdd-4362-831f-f21dca08be8b" name="munittestingFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<logger level="INFO" doc:name="Logger" doc:id="31f3c677-1c3f-414b-af61-f9f492fe3645" message="done"/>
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="dc293f07-277f-4b1c-87a2-6bfbf0d2280b" actual="#[payload.message]" expected='#["welcome toanji ardula"]' message="responce payload is not correct"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
