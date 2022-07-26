@@ -10,7 +10,7 @@
 	<munit:config name="munittesting-test-suite.xml" />
 	<munit:test name="munittesting-hello-api-munittestingFlowTest" doc:id="9961fd9b-4843-447f-b253-687f68be17c9" description="Test">
 		<munit:execution >
-			<munit:set-event doc:name="Set Event" doc:id="fd50fd1c-b8d0-4ab8-9c1d-52f27314af90" >
+			<munit:set-event doc:name="Set Event" doc:id="fd50fd1c-b8d0-4ab8-9c1d-52f27314af90">
 				<munit:attributes value='#[{queryParams: {firstName: "anji",lastName:"ardula"}}]' />
 			</munit:set-event>
 			<flow-ref doc:name="Flow-ref to munittestingFlow" doc:id="5c29fa5a-ffdd-4362-831f-f21dca08be8b" name="munittestingFlow"/>
@@ -18,6 +18,34 @@
 		<munit:validation >
 			<logger level="INFO" doc:name="Logger" doc:id="31f3c677-1c3f-414b-af61-f9f492fe3645" message="done"/>
 			<munit-tools:assert-equals doc:name="Assert equals" doc:id="dc293f07-277f-4b1c-87a2-6bfbf0d2280b" actual="#[payload.message]" expected='#["welcome toanji ardula"]' message="responce payload is not correct"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="aseert-that-demo-munittesting-test-suiteTest" doc:id="a480a9fe-3b90-4737-8d97-8c17df725ba5" >
+		<munit:execution>
+			<munit:set-event doc:name="Set Event" doc:id="1e53c3e9-418d-488a-8ddd-0e410dad704e" >
+				<munit:attributes value='#[{queryParams: {firstName: "anji",lastName:"ardula"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to munittestingFlow" doc:id="249ce0db-5bb5-4114-8dd9-4999356764aa" name="munittestingFlow" />
+		</munit:execution>
+		<munit:validation >
+			<logger level="INFO" doc:name="Logger" doc:id="ebdce991-b9dd-473e-a313-ff5d17fd62ca" message="assert that one"/>
+			<munit-tools:assert-that doc:name="Assert that" doc:id="a4d57a34-dab0-408e-b73d-d8bc4188ebcc" expression="#[payload.message]" is='#[MunitTools::equalTo("welcome toanji ardula")]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="assert-expression-munittesting-test-suiteTest" doc:id="112a2eb1-7800-4c92-b0ba-4d066772039d" >
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="45197742-d08c-47b0-b25f-c5a88a464995" >
+				<munit:attributes value='#[{queryParams: {firstName: "anji",lastName:"ardula"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to munittestingFlow" doc:id="53d3a943-7158-4681-afb2-8660c95bf21b" name="munittestingFlow" />
+		</munit:execution>
+		<munit:validation >
+			<logger level="INFO" doc:name="Logger" doc:id="fabbd827-1b13-404a-a419-4030e512b455" message="done 2"/>
+			<munit-tools:assert doc:name="Assert expression" doc:id="81a7f3d0-3c22-4424-898d-04a80280dd41" >
+				<munit-tools:that ><![CDATA[#[import * from dw::test::Asserts 
+ ---
+payload must equalTo({"message": "welcome toanji ardula"})]]]></munit-tools:that>
+			</munit-tools:assert>
 		</munit:validation>
 	</munit:test>
 
